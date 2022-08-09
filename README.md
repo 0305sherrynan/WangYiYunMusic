@@ -33,3 +33,8 @@ first upload
 1.change the background color to be closer to the official color
 2.add the part of header,and let the main part scroll while the other parts remain unchanged
 ```
+### 2022/8/10
+```
+1.add footer module and audio tag;currently plan to design the same style as WYY music
+2.add the vuex plug-in to store the URL of music playback
+```
