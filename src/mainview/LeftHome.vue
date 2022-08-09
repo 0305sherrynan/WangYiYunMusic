@@ -27,7 +27,9 @@
                         <!--路由跳转  -->
                         <router-view></router-view> 
                     </el-main>
-                    <!-- <el-footer>Footer</el-footer> -->
+                    <el-footer>
+                        <Footer></Footer>
+                    </el-footer>
                 </el-container>
             </el-container>
         </el-container>
@@ -36,9 +38,10 @@
 
 <script>
 
-
+import Footer from '../mainview/Footer.vue'//引入组件
 export default {
     name:'LeftHome',
+    components:{Footer},
     data(){
         return{
             isCollapse:true
@@ -77,7 +80,9 @@ export default {
     line-height: 60px;
     background-color: rgb(34, 34, 37);
   }
-  
+  .el-footer{
+    background-color: rgb(33, 33, 36);
+  }
   .el-aside {
     background-color: rgb(43, 43, 43);
     /* background-color: rgb(169, 186, 195); */

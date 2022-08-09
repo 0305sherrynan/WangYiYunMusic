@@ -20,7 +20,7 @@
     <el-card class="box-card bottom-card">
         <el-tabs>
             <el-tab-pane label="歌单列表" >
-                <el-table  :data="songs" :row-class-name="tableRowClassName" class="customer-table">
+                <el-table  :data="songs" :row-class-name="tableRowClassName" class="customer-table" @row-dblclick="getMusicUrl">
                     <el-table-column label="歌名" prop="name"></el-table-column>
                     <el-table-column label="歌手" prop="ar[0].name"></el-table-column>
                     <el-table-column label="专辑" >
@@ -75,7 +75,17 @@ export default {
           return 'success-row';
         }
         return '';
-      }
+        },
+        getMusicUrl(row){
+            this.getMusicUrlNext(row.id,row.dt)
+            
+        },
+        async getMusicUrlNext(id,br){
+            const res= await this.getMuslicGlobal(id,br)
+            if(res!=='ok'){
+                this.$message('sorry')
+            }
+        }
     
     },
     created(){   //路由创建时候执行

@@ -27,7 +27,7 @@
                 <el-row class="commandHead">
                     <el-col :span="2.5"><span>最新音乐</span></el-col>
                 </el-row>
-                <div >
+                <div class="latestMusicBox">
                     <div v-for="item in lateMusicLists" :key="item.id" class="latestSingleBox">
                         <img :src="item.picUrl" alt="" class="latest_img" >
                         <div class="latestText">
@@ -231,16 +231,24 @@ margin-bottom:1rem;
     padding: 1rem;
     /* 设置上边距 */
     margin-top: 1rem;
+    /* 清除子元素的浮动 */
+    overflow: hidden;
 }
 .latestSingleBox{
     /* 设置为行内块 */
-    display: inline-block;
+    /* display: inline-block; */
+    /* 设置为左浮动 */
+    float: left;
+    /* 设置宽度 */
     width: 50%;
     /* background-color: ; */
     /* 设置子元素的对齐方式（根元素设置了为center） */
     text-align: left;
     /* 清除自带的line-height */
     line-height: 0;
+    /*设置边距  */
+    margin-top: .2rem;
+    
 }
 .latest_img{
     width: 2rem;
@@ -273,6 +281,10 @@ margin-bottom:1rem;
     /* 清除line-height */
     line-height: 0;
 }
+/* 大盒子 */
+.latestMusicBox{
+    margin-left: 1rem;
+}
 /* 每一个小盒子 */
 .MV_SingleBox{
     /* 设置为行内块 */
@@ -290,5 +302,15 @@ margin-bottom:1rem;
     line-height: .2rem;
     /* 设置边距 */
     margin-top: .21rem;
+    
+}
+.MV_text span{
+    width: 5rem;
+        /* 省略超出宽度的字 */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
 }
 </style>

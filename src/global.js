@@ -6,3 +6,14 @@ Vue.prototype.getSpecialLists=function(id,item){ //该函数在songlist模块中
     })
     console.log(item)
 }
+Vue.prototype.getMuslicGlobal=async function(id,br){
+    const {data:res}=await this.$http.get('/song/url',{
+        params:{id,br}
+    })
+    // console.log(res)
+    if(res.data[0].url!=null){
+        const newURL=res.data[0].url
+        this.$store.commit('getURL',newURL)
+        return 'ok'
+    }
+}

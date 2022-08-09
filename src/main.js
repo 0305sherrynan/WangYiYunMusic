@@ -6,6 +6,7 @@ import element from './plugins/elementUI' //引入部分UI
 import axios from 'axios'
 import '../src/assets/css/global.css' //引入全局样式
 import  './global.js'
+import store from './store/index.js'
 const dayjs = require('dayjs')
 Vue.use(element) //使用UI插件
 Vue.use(VueRouter) //插件使用
@@ -36,5 +37,6 @@ Vue.filter('dataFormat1',function(time){
 })
 new Vue({
   render: h => h(App),
-  router:router
+  router:router,
+  store
 }).$mount('#app')
