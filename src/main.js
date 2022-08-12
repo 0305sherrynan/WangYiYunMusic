@@ -33,10 +33,13 @@ Vue.filter('dataFormat',function(time){
     return dayjs(time).format('YYYY-MM-DD')
 })
 Vue.filter('dataFormat1',function(time){
+  console.log(time)
+  console.log(dayjs(time).format('mm:ss'))
     return  dayjs(time).format('mm:ss')
 })
-new Vue({
+const vm = new Vue({
   render: h => h(App),
   router:router,
   store
 }).$mount('#app')
+// console.log(vm)

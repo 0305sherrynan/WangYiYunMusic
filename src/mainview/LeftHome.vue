@@ -82,6 +82,7 @@ export default {
   }
   .el-footer{
     background-color: rgb(33, 33, 36);
+    height: 2rem !important;
   }
   .el-aside {
     background-color: rgb(43, 43, 43);

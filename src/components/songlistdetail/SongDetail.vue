@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import Pubsub from 'pubsub-js' //引入消息订阅与发布
 export default {
     name:'SongDetail',
     data(){
@@ -76,21 +77,25 @@ export default {
         }
         return '';
         },
+        // 双击歌曲触发事件
         getMusicUrl(row){
             this.getMusicUrlNext(row.id,row.dt)
             
         },
         async getMusicUrlNext(id,br){
+            Pubsub.publish('stop') //先将middle图标设置为暂停
             const res= await this.getMuslicGlobal(id,br)
-            if(res!=='ok'){
-                this.$message('sorry')
+            if(res!=='ok'){  
+                this.$message('sorry')   //无法播放的情况
             }
+            Pubsub.publish('songDetail')  //能够播放，则设置图标为正在播放
         }
     
     },
     created(){   //路由创建时候执行
         this.getDetail() 
-    }
+    },
+
 }
 </script>
 

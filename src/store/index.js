@@ -5,7 +5,7 @@ const state={
 const mutations={
     getURL(state,value){
         state.musicUrl=value
-        console.log(1)
+        // console.log(state.musicUrl)
     }
 }
 import Vue from 'vue'

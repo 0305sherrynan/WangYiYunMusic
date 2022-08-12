@@ -40,12 +40,12 @@ import {
       Tag,
     //   Tree,
     //   Alert,
-    //   Slider,
+      Slider,
     //   Icon,
       Row,
       Col,
     //   Upload,
-    //   Progress,
+      // Progress,
     //   Spinner,
     //   Badge,
       Card,
@@ -74,8 +74,8 @@ import {
     //   PageHeader,
     //   CascaderPanel,
     //   Loading,
-    //   MessageBox,
-    //   Message,
+      MessageBox,
+      Message,
     //   Notification
 } from 'element-ui'
 
@@ -121,7 +121,7 @@ const element={
     Vue.use(Tag);
     // Vue.use(Tree);
     // Vue.use(Alert);
-    // Vue.use(Slider);
+    Vue.use(Slider);
     // Vue.use(Icon);
     Vue.use(Row);
     Vue.use(Col);
@@ -158,12 +158,12 @@ const element={
     // Vue.use(Loading.directive);
 
     // Vue.prototype.$loading = Loading.service;
-    // Vue.prototype.$msgbox = MessageBox;
+    Vue.prototype.$msgbox = MessageBox;
     // Vue.prototype.$alert = MessageBox.alert;
     // Vue.prototype.$confirm = MessageBox.confirm;
     // Vue.prototype.$prompt = MessageBox.prompt;
     // Vue.prototype.$notify = Notification;
-    // Vue.prototype.$message = Message;
+    Vue.prototype.$message = Message;
     }
 }  
 export default element  //将按需注册封装
