@@ -38,3 +38,7 @@ first upload
 1.add footer module and audio tag;currently plan to design the same style as WYY music
 2.add the vuex plug-in to store the URL of music playback
 ```
+### 2022/8/12
+```
+1.The bottom part of the player is gradually improved: double click play, the middle button switches pause and play, drag bar and time display.
+```
