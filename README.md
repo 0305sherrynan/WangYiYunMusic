@@ -42,3 +42,7 @@ first upload
 ```
 1.The bottom part of the player is gradually improved: double click play, the middle button switches pause and play, drag bar and time display.
 ```
+### 2022/8/14
+```
+1.The function of the previous song and the next song is completed; Volume control completed; Album, title, and author are displayed
+```
