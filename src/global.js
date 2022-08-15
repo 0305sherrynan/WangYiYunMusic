@@ -4,7 +4,7 @@ Vue.prototype.getSpecialLists=function(id,item){ //该函数在songlist模块中
     this.$router.push({
         name:'SongDetail'
     })
-    console.log(item)
+    // console.log(item)
 }
 Vue.prototype.getMuslicGlobal=async function(id,br){
     const {data:res}=await this.$http.get('/song/url',{
@@ -13,7 +13,8 @@ Vue.prototype.getMuslicGlobal=async function(id,br){
     // console.log(res)
     if(res.data[0].url!=null){
         const newURL=res.data[0].url
-        this.$store.commit('getURL',newURL)
+        this.$store.commit('getURL',newURL)  //将URL存在store中
         return 'ok'
     }
+    else return 'no'
 }

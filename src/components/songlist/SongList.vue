@@ -70,7 +70,7 @@ export default {
             }
 
            })
-           console.log(sortLists)
+          //  console.log(sortLists)
           //将标签放入array中
           let temp=[]
            sortLists.data.tags.forEach((element,index) => {

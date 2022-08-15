@@ -47,7 +47,7 @@ export default {
             playlist:{
                 // creator:{} <!--解决数据找不到报错-->
             }, //用于存放单个歌单数据的对象
-            songs:[]
+            songs:[]  //对象数组，存放每一首的信息
         }
     },
     methods:{
@@ -64,7 +64,8 @@ export default {
                 }
             })
             this.songs=res_1.songs
-            console.log(res_1)
+            // console.log(this.songs)
+
             // console.log(this.playlist)
         },
         tableRowClassName({row, rowIndex}) {   //设置table的样式
@@ -88,12 +89,18 @@ export default {
             if(res!=='ok'){  
                 this.$message('sorry')   //无法播放的情况
             }
+            
             Pubsub.publish('songDetail')  //能够播放，则设置图标为正在播放
+            //将歌单所有歌曲信息传输给Footer组件
+            Pubsub.publish('tranferSongs',[this.songs,id,br])
         }
     
     },
     created(){   //路由创建时候执行
         this.getDetail() 
+        Pubsub.subscribe('lastornext',(msgName,data)=>{
+            this.getMusicUrlNext(data[0],data[1])
+        })
     },
 
 }
