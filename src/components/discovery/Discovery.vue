@@ -6,7 +6,7 @@
                 <el-carousel :interval="4000" type="card" height="200px">
                     <el-carousel-item v-for="(item,index) in banners" :key="index">
                     <!-- <h3 class="medium">{{ item }}</h3> -->
-                    <img :src="item.imageUrl" alt="" class="banner_img">
+                    <img :src="item.imageUrl" alt="" class="banner_img" @click="carouselClickPlay(item.targetId)">
                     </el-carousel-item>
                 </el-carousel>
         </div>
@@ -46,7 +46,7 @@
             </el-row>
             <div>
                 <div v-for="item in commandMV" :key="item.id" class="MV_SingleBox">
-                    <img :src="item.picUrl" alt="" class="MV_img">
+                    <img :src="item.picUrl" alt="" class="MV_img" >
                     <div class="MV_text"><span>{{item.name}}</span></div>
                 </div>
             </div>
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import Pubsub from 'pubsub-js' //引入消息订阅与发布
 export default {
     name:'discovery',
     data(){
@@ -73,6 +74,20 @@ export default {
                 }
             })
             this.banners=res.banners
+        },
+        async carouselClickPlay(id){  //轮播图点击播放音乐
+            console.log(this.banners)
+            Pubsub.publish('stop') //先将middle图标设置为暂停
+            const res= await this.getMuslicGlobal(id,1000)
+            if(res!=='ok'){  
+                this.$message('sorry')   //无法播放的情况
+            }
+            
+            Pubsub.publish('songDetail')  //能够播放，则设置图标为正在播放
+            //将歌单所有歌曲信息传输给Footer组件
+            this.$store.commit('xiugai',2)  //赋值标志为2
+            Pubsub.publish('tranferSongs',[this.banners,id,1000])  //传2是代表从轮播图点击的歌
+        
         },
         async getCommandLists(){  //获取推荐歌单
             const {data:res}=await this.$http.get('/personalized',{

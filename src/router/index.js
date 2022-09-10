@@ -6,6 +6,9 @@ import SongList from '../components/songlist/SongList.vue'
 import SongDetail from '../components/songlistdetail/SongDetail.vue'
 import Maindis from "../components/discovery/Maindis.vue"
 import discovery from '../components/discovery/Discovery.vue'
+import Mainvid from '../components/video/Mainvid.vue'
+import Video from '../components/video/Video.vue'
+import BroadCast from '../components/videoplay/BroadCast.vue'
 const router=new VueRouter({
     routes:[
         {
@@ -13,8 +16,8 @@ const router=new VueRouter({
             path:'/',
             component:LeftHome,
             children:[
-                
                 {name:'SongDetail',path:'SongDetail',component:SongDetail},
+                {name:'BroadCast',path:'BroadCast',component:BroadCast},
                 {   name:'Maindis',
                     path:'Maindis',
                     component:Maindis,
@@ -22,8 +25,14 @@ const router=new VueRouter({
                         {name:'Discovery',path:'Discovery',component:discovery},
                         {name:'SongList',path:'SongList',component:SongList},
                     ]
-
-
+                },
+                {
+                    name:'Mainvid',
+                    path:'Mainvid',
+                    component:Mainvid,
+                    children:[
+                        {name:'Video',path:'Video',component:Video}
+                    ]
                 }
             ]
         }

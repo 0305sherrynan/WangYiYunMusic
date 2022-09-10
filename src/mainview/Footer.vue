@@ -19,7 +19,7 @@
                 <img :src="this.nextSong" alt="" @click="nextSongStart ">
             </div>
             <div class="middleBoxBottom">
-                <el-slider v-model="progress"></el-slider>
+                <el-slider v-model="progress" @change="sliderChange()"></el-slider>
             </div>
         </el-col>
         <el-col :span="2" class="count"> <span class="spanStyle">{{duration}}</span></el-col>
@@ -96,25 +96,32 @@ export default {
                     this.currentTime=filters.dataFormat1(this.audio.currentTime*1000)  //动态获取当前时间
                     if(this.audio.duration !== NaN)
                     this.progress=this.audio.currentTime/this.audio.duration*100 // 拖拽条随着timeupdate事件的发生而改变
-
+                    if(this.audio.currentTime>=this.audio.duration) //当前播放已结束，播放下一首歌
+                    {   
+                        console.log(11)
+                        this.nextSongStart()
+                    }
             
             //  console.log(this.percentage)
         },
         async lastSongStart(){  //播放上一歌曲
-
-            // this.getMuslicGlobal(this.songs[currentIDIndex-1].id,this.songs[currentIDIndex-1].dt)
-            Pubsub.publish('lastornext',[this.songs[this.currentIDIndex-1].id,this.songs[this.currentIDIndex-1].dt])
+            if(this.$store.state.choice==1) Pubsub.publish('lastornext',[this.songs[this.currentIDIndex-1].id,this.songs[this.currentIDIndex-1].dt])
         },
         async nextSongStart(){  //播放下一歌曲
-            // this.getMuslicGlobal(this.songs[currentIDIndex-1].id,this.songs[currentIDIndex-1].dt)
-            Pubsub.publish('lastornext',[this.songs[this.currentIDIndex+1].id,this.songs[this.currentIDIndex+1].dt])
+            if(this.$store.state.choice==1) Pubsub.publish('lastornext',[this.songs[this.currentIDIndex+1].id,this.songs[this.currentIDIndex=1].dt])
         },
         volumeChange(currentValue){  //滑动音量时改变（隐藏事件：一开始刷新时居然会执行一次）
             // console.log(1)
             this.audio.volume=currentValue/100
             this.volumeSize=this.audio.volume*100
 
+        },
+        sliderChange(){   //拖拽进度条，音乐进度改变
+            this.audio.currentTime = this.progress/100*this.audio.duration
         }
+        // autoNextSong(){   //自动播放下一首歌
+
+        // }
 
     },
     mounted(){
@@ -130,17 +137,30 @@ export default {
         })
         //传送歌单所有歌曲的信息，用于循环播放、上、下播放
         Pubsub.subscribe('tranferSongs',async (msgName,data)=>{
-            this.songs=data[0]
-            // console.log(this.songs[])
+              this.songs=data[0]  //考虑是点击轮播图播放，没有上一首
+            console.log(this.songs)
             this.songsID=data[1]
             this.songsBr=data[2]
+             if(this.$store.state.choice == 1){  //从列表点击的歌
             this.currentIDIndex = await this.songs.findIndex((currentValue)=>{
                 return currentValue.id==this.songsID
             })
-            // console.log(this.songs[this.currentIDIndex])
-            this.picURL = this.songs[this.currentIDIndex].al.picUrl
-            this.songName=this.songs[this.currentIDIndex].name
+             }
+             else if(this.$store.state.choice==2){//从banner点击的歌
+                            this.currentIDIndex = await this.songs.findIndex((currentValue)=>{
+                return currentValue.targetId==this.songsID
+            })
+             }
+            console.log(this.songs[this.currentIDIndex])
+            let arr = Object.keys(this.songs[this.currentIDIndex])
+              // true
+            if(arr.includes('al') ==true)  
+            {
+                this.picURL = this.songs[this.currentIDIndex].al.picUrl
+                this.songName=this.songs[this.currentIDIndex].name
              this.songAuthor=this.songs[this.currentIDIndex].ar[0].name
+            }
+            else  this.picURL=this.songs[this.currentIDIndex].imageUrl//轮播图点击
         })
     },
     computed:{

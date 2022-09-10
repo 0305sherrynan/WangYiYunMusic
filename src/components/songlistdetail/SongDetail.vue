@@ -80,6 +80,7 @@ export default {
         },
         // 双击歌曲触发事件
         getMusicUrl(row){
+            
             this.getMusicUrlNext(row.id,row.dt)
             
         },
@@ -92,7 +93,8 @@ export default {
             
             Pubsub.publish('songDetail')  //能够播放，则设置图标为正在播放
             //将歌单所有歌曲信息传输给Footer组件
-            Pubsub.publish('tranferSongs',[this.songs,id,br])
+            this.$store.commit('xiugai',1)  //赋值标志为1
+            Pubsub.publish('tranferSongs',[this.songs,id,br])  //数字1代表是从列表点击歌的
         }
     
     },
